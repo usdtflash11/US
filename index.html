@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+ 
+<html lang="ar" dir="rtl">
+ 
+<head>
+ 
+<meta charset="UTF-8">
+ 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+<title>USDT FLASH - استثمر بذكاء</title>
+ 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+ 
+<style>
+ 
+:root {
+ 
+--primary: #00ffc8;
+ 
+--primary-dark: #00d4a8;
+ 
+--secondary: #1a1f2d;
+ 
+--accent: #ff00ff;
+ 
+--text: #ffffff;
+ 
+--text-secondary: #e0e0e0;
+ 
+--bg: #0a0e1a;
+ 
+--card-bg: rgba(26, 31, 45, 0.85);
+ 
+--success: #00ff88;
+ 
+--warning: #ffcc00;
+ 
+--error: #ff5555;
+ 
+--network-trc: #00ffc8;
+ 
+--network-bep: #f0b90b;
+ 
+--network-erc: #2775ca;
+ 
+--telegram-blue: #0088cc;
+ 
+--telegram-light: #33a0de;
+ 
+--telegram-dark: #006699;
+ 
+--space-gradient: linear-gradient(135deg, #0c162d 0%, #0a0e1a 100%);
+ 
+}
+ 
+* {
+ 
+margin: 0;
+ 
+padding: 0;
+ 
+box-sizing: border-box;
+ 
+font-family: 'Tajawal', 'Segoe UI', sans-serif;
+ 
+}
+ 
+body {
+ 
+background: var(--space-gradient);
+ 
+color: var(--text);
+ 
+min-height: 100vh;
+ 
+overflow-x: hidden;
+ 
+line-height: 1.6;
+ 
+position: relative;
+ 
+}
+ 
+/* تأثير النجوم في الخلفية */
+ 
+.stars {
+ 
+position: fixed;
+ 
+top: 0;
+ 
+left: 0;
+ 
+width: 100%;
+ 
+height: 100%;
+ 
+z-index: -1;
+ 
+overflow: hidden;
+ 
+}
+ 
+.star {
+ 
+position: absolute;
+ 
+background-color: #fff;
+ 
+border-radius: 50%;
+ 
+animation: twinkle var(--duration, 5s) infinite ease-in-out;
+ 
+}
+ 
+/* خطوط متحركة في الخلفية */
+ 
+.grid-lines {
+ 
+position: fixed;
+ 
+top: 0;
+ 
+left: 0;
+ 
+width: 100%;
+ 
+height: 100%;
+ 
+z-index: -1;
+ 
+background-image: 
+ 
+linear-gradient(rgba(0, 255, 200, 0.05) 1px, transparent 1px),
+ 
+linear-gradient(90deg, rgba(0, 255, 200, 0.05) 1px, transparent 1px);
+ 
+background-size: 40px 40px;
+ 
+opacity: 0.3;
+ 
+animation: gridMove 20s linear infinite;
+ 
+}
+ 
+body.en {
+ 
+direction: ltr;
+ 
+text-align: left;
+ 
+}
+ 
+.lang-switcher {
+ 
+position: fixed;
+ 
+top: 20px;
+ 
+right: 20px;
+ 
+z-index: 1000;
+ 
+}
+ 
+body.en .lang-switcher {
+ 
+left: 20px;
+ 
+right: auto;
+ 
+}
+ 
+.lang-btn {
+ 
+background: rgba(0, 255, 200, 0.15);
+ 
+border: 1px solid var(--primary);
+ 
+color: var(--text);
+ 
+padding: 8px 15px;
+ 
+border-radius: 20px;
+ 
+cursor: pointer;
+ 
+font-size: 14px;
+ 
+transition: all 0.3s;
+ 
+display: flex;
+ 
+align-items: center;
+ 
+gap: 8px;
+ 
+backdrop-filter: blur(5px);
+ 
+box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+ 
+}
+ 
+.lang-btn:hover {
+ 
+background: rgba(0, 255, 200, 0.3);
+ 
+transform: translateY(-3px);
+ 
+box-shadow: 0 5px 15px rgba(0, 255, 200, 0.4);
+ 
+}
+ 
+.header {
+ 
+text-align: center;
+ 
+padding: 40px 20px 30px;
+ 
+position: relative;
+ 
+z-index: 2;
+ 
+}
+ 
+body.en .header {
+ 
+text-align: center;
+ 
+}
+ 
+.logo-container {
+ 
+position: relative;
+ 
+display: inline-block;
+ 
+margin-bottom: 20px;
+ 
+}
+ 
+.logo {
+ 
+width: 180px;
+ 
+height: 180px;
+ 
+object-fit: contain;
+ 
+animation: glow 2s infinite alternate;
+ 
+border-radius: 50%;
+ 
+border: 3px solid var(--primary);
+ 
+box-shadow: 0 0 30px rgba(0, 255, 200, 0.5);
+ 
+position: relative;
+ 
+z-index: 2;
+ 
+}
+ 
+.usdt-animation {
+ 
+position: absolute;
+ 
+width: 100px;
+ 
+height: 100px;
+ 
+top: 50%;
+ 
+left: 50%;
+ 
+transform: translate(-50%, -50%);
+ 
+animation: spin 4s linear infinite;
+ 
+opacity: 0.8;
+ 
+filter: drop-shadow(0 0 10px var(--primary));
+ 
+z-index: 1;
+ 
+}
+ 
+.title {
+ 
+font-size: 2.5rem;
+ 
+margin-bottom: 10px;
+ 
+background: linear-gradient(45deg, var(--primary), var(--accent));
+ 
+-webkit-background-clip: text;
+ 
+-webkit-text-fill-color: transparent;
+ 
+text-shadow: 0 2px 10px rgba(0, 255, 200, 0.3);
+ 
+font-weight: 800;
+ 
+letter-spacing: 1px;
+ 
+position: relative;
+ 
+z-index: 2;
+ 
+}
+ 
+.packages {
+ 
+display: grid;
+ 
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ 
+gap: 25px;
+ 
+padding: 0 20px;
+ 
+max-width: 1300px;
+ 
+margin: 0 auto 50px;
+ 
+position: relative;
+ 
+z-index: 2;
+ 
+}
+ 
+.package {
+ 
+background: linear-gradient(145deg, rgba(0, 255, 200, 0.1), rgba(26, 31, 45, 0.85));
+ 
+border: 1px solid rgba(0, 255, 200, 0.3);
+ 
+border-radius: 15px;
+ 
+padding: 25px;
+ 
+text-align: center;
+ 
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ 
+position: relative;
+ 
+overflow: hidden;
+ 
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+ 
+backdrop-filter: blur(5px);
+ 
+transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+ 
+transform-style: preserve-3d;
+ 
+}
+ 
+.package:hover {
+ 
+transform: 
+ 
+perspective(1000px) 
+ 
+rotateX(3deg) 
+ 
+rotateY(3deg)
+ 
+translateY(-15px);
+ 
+box-shadow: 0 20px 40px rgba(0, 255, 200, 0.3);
+ 
+border-color: var(--primary);
+ 
+}
+ 
+.package::before {
+ 
+content: '';
+ 
+position: absolute;
+ 
+top: -50%;
+ 
+left: -50%;
+ 
+width: 200%;
+ 
+height: 200%;
+ 
+background: linear-gradient(
+ 
+to bottom right,
+ 
+rgba(0, 255, 200, 0),
+ 
+rgba(0, 255, 200, 0),
+ 
+rgba(0, 255, 200, 0.1),
+ 
+rgba(0, 255, 200, 0)
+ 
+);
+ 
+transform: rotate(60deg);
+ 
+animation: shine 3s infinite;
+ 
+}
+ 
+.package-img {
+ 
+width: 100px;
+ 
+height: 100px;
+ 
+margin: 0 auto 20px;
+ 
+animation: pulse 2s infinite ease-in-out;
+ 
+filter: drop-shadow(0 0 10px rgba(0, 255, 200, 0.5));
+ 
+}
+ 
+.package-title {
+ 
+font-size: 1.5rem;
+ 
+margin-bottom: 15px;
+ 
+color: var(--accent);
+ 
+text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+ 
+font-weight: bold;
+ 
+}
+ 
+.package-price {
+ 
+font-size: 1.8rem;
+ 
+font-weight: bold;
+ 
+margin-bottom: 5px;
+ 
+color: var(--primary);
+ 
+text-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
+ 
+}
+ 
+.package-reward {
+ 
+font-size: 1.3rem;
+ 
+margin-bottom: 20px;
+ 
+color: var(--text);
+ 
+font-weight: 600;
+ 
+}
+ 
+.package-details {
+ 
+background: rgba(0, 0, 0, 0.25);
+ 
+border-radius: 10px;
+ 
+padding: 15px;
+ 
+margin-bottom: 20px;
+ 
+text-align: right;
+ 
+border: 1px solid rgba(0, 255, 200, 0.2);
+ 
+}
+ 
+body.en .package-details {
+ 
+text-align: left;
+ 
+}
+ 
+.network-badge {
+ 
+display: inline-block;
+ 
+padding: 4px 10px;
+ 
+border-radius: 20px;
+ 
+font-size: 0.8rem;
+ 
+font-weight: bold;
+ 
+margin: 3px;
+ 
+background: rgba(0, 0, 0, 0.4);
+ 
+border: 1px solid currentColor;
+ 
+}
+ 
+.network-trc {
+ 
+color: var(--network-trc);
+ 
+text-shadow: 0 0 5px var(--network-trc);
+ 
+}
+ 
+.network-bep {
+ 
+color: var(--network-bep);
+ 
+text-shadow: 0 0 5px var(--network-bep);
+ 
+}
+ 
+.network-erc {
+ 
+color: var(--network-erc);
+ 
+text-shadow: 0 0 5px var(--network-erc);
+ 
+}
+ 
+.expiry-info {
+ 
+font-size: 0.9rem;
+ 
+color: var(--warning);
+ 
+margin-top: 10px;
+ 
+padding: 8px;
+ 
+background: rgba(255, 204, 0, 0.1);
+ 
+border-radius: 8px;
+ 
+border-right: 3px solid var(--warning);
+ 
+display: flex;
+ 
+align-items: center;
+ 
+justify-content: center;
+ 
+gap: 8px;
+ 
+text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+ 
+}
+ 
+body.en .expiry-info {
+ 
+border-right: none;
+ 
+border-left: 3px solid var(--warning);
+ 
+}
+ 
+.expiry-icon {
+ 
+color: var(--warning);
+ 
+font-size: 1.1rem;
+ 
+}
+ 
+.buy-btn {
+ 
+background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+ 
+color: #0a0e1a;
+ 
+border: none;
+ 
+padding: 12px 30px;
+ 
+border-radius: 30px;
+ 
+font-size: 1.1rem;
+ 
+cursor: pointer;
+ 
+width: 100%;
+ 
+position: relative;
+ 
+overflow: hidden;
+ 
+transition: all 0.3s;
+ 
+box-shadow: 0 4px 15px rgba(0, 255, 200, 0.4);
+ 
+display: flex;
+ 
+align-items: center;
+ 
+justify-content: center;
+ 
+gap: 8px;
+ 
+font-weight: bold;
+ 
+letter-spacing: 1px;
+ 
+z-index: 2;
+ 
+}
+ 
+.buy-btn:hover {
+ 
+transform: translateY(-2px);
+ 
+box-shadow: 
+ 
+0 6px 20px rgba(0, 255, 200, 0.6),
+ 
+0 0 20px rgba(0, 255, 200, 0.4);
+ 
+background: linear-gradient(45deg, #00ffc8, #00c9a0);
+ 
+}
+ 
+.buy-btn::after {
+ 
+content: '';
+ 
+position: absolute;
+ 
+top: 0;
+ 
+left: -100%;
+ 
+width: 100%;
+ 
+height: 100%;
+ 
+background: linear-gradient(
+ 
+90deg,
+ 
+transparent,
+ 
+rgba(255, 255, 255, 0.4),
+ 
+transparent
+ 
+);
+ 
+transition: 0.5s;
+ 
+}
+ 
+.buy-btn:hover::after {
+ 
+left: 100%;
+ 
+}
+ 
+.info-section {
+ 
+max-width: 900px;
+ 
+margin: 0 auto 50px;
+ 
+padding: 0 20px;
+ 
+position: relative;
+ 
+z-index: 2;
+ 
+}
+ 
+.info-title {
+ 
+text-align: center;
+ 
+font-size: 2rem;
+ 
+margin-bottom: 30px;
+ 
+color: var(--primary);
+ 
+position: relative;
+ 
+padding-bottom: 15px;
+ 
+text-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+ 
+}
+ 
+.info-title::after {
+ 
+content: '';
+ 
+position: absolute;
+ 
+bottom: 0;
+ 
+left: 50%;
+ 
+transform: translateX(-50%);
+ 
+width: 100px;
+ 
+height: 3px;
+ 
+background: linear-gradient(90deg, var(--primary), var(--accent));
+ 
+border-radius: 3px;
+ 
+box-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
+ 
+}
+ 
+.info-item {
+ 
+background: var(--card-bg);
+ 
+border-radius: 10px;
+ 
+margin-bottom: 15px;
+ 
+overflow: hidden;
+ 
+border-right: 4px solid var(--primary);
+ 
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+ 
+transform: perspective(1000px) rotateX(0deg);
+ 
+transform-style: preserve-3d;
+ 
+transition: all 0.3s;
+ 
+}
+ 
+.info-item:hover {
+ 
+transform: perspective(1000px) rotateX(2deg);
+ 
+box-shadow: 0 10px 25px rgba(0, 255, 200, 0.2);
+ 
+}
+ 
+body.en .info-item {
+ 
+border-right: none;
+ 
+border-left: 4px solid var(--primary);
+ 
+}
+ 
+.info-header {
+ 
+padding: 15px 20px;
+ 
+cursor: pointer;
+ 
+display: flex;
+ 
+justify-content: space-between;
+ 
+align-items: center;
+ 
+transition: background 0.3s;
+ 
+background: rgba(0, 0, 0, 0.2);
+ 
+}
+ 
+body.en .info-header {
+ 
+flex-direction: row-reverse;
+ 
+}
+ 
+.info-header:hover {
+ 
+background: rgba(0, 255, 200, 0.1);
+ 
+}
+ 
+.info-header h3 {
+ 
+font-size: 1.2rem;
+ 
+color: var(--text);
+ 
+text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+ 
+}
+ 
+.info-icon {
+ 
+transition: transform 0.3s;
+ 
+color: var(--primary);
+ 
+}
+ 
+.info-content {
+ 
+max-height: 0;
+ 
+overflow: hidden;
+ 
+transition: max-height 0.4s ease;
+ 
+padding: 0 20px;
+ 
+background: rgba(0, 255, 200, 0.05);
+ 
+}
+ 
+.info-content p {
+ 
+padding: 15px 0;
+ 
+text-align: right;
+ 
+color: var(--text);
+ 
+line-height: 1.8;
+ 
+}
+ 
+body.en .info-content p {
+ 
+text-align: left;
+ 
+}
+ 
+.info-item.active .info-content {
+ 
+max-height: 500px;
+ 
+}
+ 
+.info-item.active .info-icon {
+ 
+transform: rotate(180deg);
+ 
+}
+ 
+.modal {
+ 
+position: fixed;
+ 
+top: 0;
+ 
+left: 0;
+ 
+width: 100%;
+ 
+height: 100%;
+ 
+background: rgba(0, 0, 0, 0.95);
+ 
+display: none;
+ 
+justify-content: center;
+ 
+align-items: center;
+ 
+z-index: 2000;
+ 
+backdrop-filter: blur(10px);
+ 
+}
+ 
+.modal-content {
+ 
+background: linear-gradient(145deg, #0f1525, #131b2f);
+ 
+border-radius: 15px;
+ 
+width: 90%;
+ 
+max-width: 500px;
+ 
+padding: 30px;
+ 
+position: relative;
+ 
+animation: modalFadeIn 0.3s;
+ 
+box-shadow: 
+ 
+0 15px 35px rgba(0, 0, 0, 0.5),
+ 
+0 0 0 1px rgba(0, 255, 200, 0.3),
+ 
+0 0 20px rgba(0, 255, 200, 0.2);
+ 
+border: 1px solid rgba(0, 255, 200, 0.3);
+ 
+transform: perspective(1000px) rotateX(0deg);
+ 
+transform-style: preserve-3d;
+ 
+}
+ 
+.close-modal {
+ 
+position: absolute;
+ 
+top: 15px;
+ 
+right: 15px;
+ 
+font-size: 1.5rem;
+ 
+cursor: pointer;
+ 
+color: var(--text-secondary);
+ 
+transition: all 0.3s;
+ 
+width: 35px;
+ 
+height: 35px;
+ 
+display: flex;
+ 
+align-items: center;
+ 
+justify-content: center;
+ 
+border-radius: 50%;
+ 
+background: rgba(255, 255, 255, 0.1);
+ 
+}
+ 
+body.en .close-modal {
+ 
+left: 15px;
+ 
+right: auto;
+ 
+}
+ 
+.close-modal:hover {
+ 
+color: var(--primary);
+ 
+transform: rotate(90deg);
+ 
+background: rgba(0, 255, 200, 0.2);
+ 
+box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+ 
+}
+ 
+.modal-title {
+ 
+text-align: center;
+ 
+margin-bottom: 20px;
+ 
+font-size: 1.5rem;
+ 
+color: var(--primary);
+ 
+position: relative;
+ 
+padding-bottom: 10px;
+ 
+text-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+ 
+}
+ 
+.modal-title::after {
+ 
+content: '';
+ 
+position: absolute;
+ 
+bottom: 0;
+ 
+left: 50%;
+ 
+transform: translateX(-50%);
+ 
+width: 60px;
+ 
+height: 2px;
+ 
+background: var(--primary);
+ 
+box-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
+ 
+}
+ 
+.form-group {
+ 
+margin-bottom: 20px;
+ 
+}
+ 
+.form-group label {
+ 
+display: block;
+ 
+margin-bottom: 8px;
+ 
+font-weight: bold;
+ 
+color: var(--text);
+ 
+}
+ 
+.form-control {
+ 
+width: 100%;
+ 
+padding: 12px 15px;
+ 
+border-radius: 8px;
+ 
+border: 1px solid rgba(0, 255, 200, 0.3);
+ 
+background: rgba(0, 0, 0, 0.3);
+ 
+color: var(--text);
+ 
+font-size: 1rem;
+ 
+transition: all 0.3s;
+ 
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ 
+}
+ 
+.form-control:focus {
+ 
+outline: none;
+ 
+border-color: var(--primary);
+ 
+box-shadow: 
+ 
+0 0 15px rgba(0, 255, 200, 0.4),
+ 
+inset 0 0 5px rgba(0, 255, 200, 0.2);
+ 
+}
+ 
+.network-selector {
+ 
+display: flex;
+ 
+gap: 10px;
+ 
+margin-bottom: 15px;
+ 
+}
+ 
+.network-option {
+ 
+flex: 1;
+ 
+padding: 10px;
+ 
+border-radius: 8px;
+ 
+background: rgba(0, 0, 0, 0.3);
+ 
+border: 1px solid rgba(0, 255, 200, 0.2);
+ 
+text-align: center;
+ 
+cursor: pointer;
+ 
+transition: all 0.3s;
+ 
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+ 
+}
+ 
+.network-option:hover {
+ 
+transform: translateY(-3px);
+ 
+box-shadow: 0 5px 15px rgba(0, 255, 200, 0.2);
+ 
+}
+ 
+.network-option.active {
+ 
+background: rgba(0, 255, 200, 0.2);
+ 
+border-color: var(--primary);
+ 
+box-shadow: 
+ 
+0 0 15px rgba(0, 255, 200, 0.3),
+ 
+inset 0 0 5px rgba(0, 255, 200, 0.2);
+ 
+transform: translateY(-3px);
+ 
+}
+ 
+.network-option i {
+ 
+font-size: 1.5rem;
+ 
+margin-bottom: 5px;
+ 
+display: block;
+ 
+color: var(--primary);
+ 
+text-shadow: 0 0 5px rgba(0, 255, 200, 0.5);
+ 
+}
+ 
+.qr-container {
+ 
+width: 220px;
+ 
+height: 220px;
+ 
+margin: 20px auto;
+ 
+background: white;
+ 
+padding: 10px;
+ 
+border-radius: 8px;
+ 
+display: flex;
+ 
+justify-content: center;
+ 
+align-items: center;
+ 
+position: relative;
+ 
+overflow: hidden;
+ 
+box-shadow: 
+ 
+0 0 30px rgba(0, 255, 200, 0.6),
+ 
+0 0 50px rgba(0, 255, 200, 0.4);
+ 
+animation: qrGlow 2s infinite alternate;
+ 
+transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+ 
+transform-style: preserve-3d;
+ 
+}
+ 
+#qrcode {
+ 
+width: 200px;
+ 
+height: 200px;
+ 
+display: flex;
+ 
+justify-content: center;
+ 
+align-items: center;
+ 
+}
+ 
+#qrcode img {
+ 
+max-width: 100%;
+ 
+max-height: 100%;
+ 
+}
+ 
+.copy-box {
+ 
+display: flex;
+ 
+background: rgba(0, 0, 0, 0.3);
+ 
+border-radius: 8px;
+ 
+overflow: hidden;
+ 
+margin-bottom: 20px;
+ 
+border: 1px solid rgba(0, 255, 200, 0.3);
+ 
+transition: all 0.3s;
+ 
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ 
+}
+ 
+.copy-box:hover {
+ 
+border-color: var(--primary);
+ 
+transform: scale(1.02);
+ 
+box-shadow: 
+ 
+0 0 15px rgba(0, 255, 200, 0.4),
+ 
+inset 0 0 5px rgba(0, 255, 200, 0.2);
+ 
+}
+ 
+.copy-input {
+ 
+flex: 1;
+ 
+padding: 12px 15px;
+ 
+background: transparent;
+ 
+border: none;
+ 
+color: var(--text);
+ 
+font-family: monospace;
+ 
+}
+ 
+.copy-btn {
+ 
+background: var(--primary);
+ 
+color: #0a0e1a;
+ 
+border: none;
+ 
+padding: 0 15px;
+ 
+cursor: pointer;
+ 
+transition: background 0.3s;
+ 
+display: flex;
+ 
+align-items: center;
+ 
+justify-content: center;
+ 
+font-weight: bold;
+ 
+}
+ 
+.copy-btn:hover {
+ 
+background: var(--primary-dark);
+ 
+}
+ 
+.modal-steps {
+ 
+display: none;
+ 
+}
+ 
+.action-btn {
+ 
+background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+ 
+color: #0a0e1a;
+ 
+border: none;
+ 
+padding: 12px 25px;
+ 
+border-radius: 8px;
+ 
+cursor: pointer;
+ 
+font-size: 1rem;
+ 
+width: 100%;
+ 
+margin-top: 15px;
+ 
+transition: all 0.3s;
+ 
+display: flex;
+ 
+align-items: center;
+ 
+justify-content: center;
+ 
+gap: 8px;
+ 
+position: relative;
+ 
+overflow: hidden;
+ 
+font-weight: bold;
+ 
+box-shadow: 0 4px 15px rgba(0, 255, 200, 0.4);
+ 
+z-index: 2;
+ 
+}
+ 
+.action-btn:hover {
+ 
+transform: translateY(-2px);
+ 
+box-shadow: 
+ 
+0 6px 20px rgba(0, 255, 200, 0.6),
+ 
+0 0 20px rgba(0, 255, 200, 0.4);
+ 
+}
+ 
+.action-btn::after {
+ 
+content: '';
+ 
+position: absolute;
+ 
+top: 0;
+ 
+left: -100%;
+ 
+width: 100%;
+ 
+height: 100%;
+ 
+background: linear-gradient(
+ 
+90deg,
+ 
+transparent,
+ 
+rgba(255, 255, 255, 0.4),
+ 
+transparent
+ 
+);
+ 
+transition: 0.5s;
+ 
+}
+ 
+.action-btn:hover::after {
+ 
+left: 100%;
+ 
+}
+ 
+.loading {
+ 
+position: relative;
+ 
+}
+ 
+.loading::after {
+ 
+content: '';
+ 
+position: absolute;
+ 
+top: 0;
+ 
+left: 0;
+ 
+width: 100%;
+ 
+height: 100%;
+ 
+background: rgba(0, 0, 0, 0.3);
+ 
+animation: loadingBar 30s linear forwards;
+ 
+}
+ 
+.success-message {
+ 
+text-align: center;
+ 
+color: var(--success);
+ 
+margin-top: 20px;
+ 
+font-weight: bold;
+ 
+display: none;
+ 
+animation: fadeIn 0.5s;
+ 
+text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+ 
+}
+ 
+.error-message {
+ 
+text-align: center;
+ 
+color: var(--error);
+ 
+margin-top: 20px;
+ 
+font-weight: bold;
+ 
+display: none;
+ 
+animation: fadeIn 0.5s;
+ 
+text-shadow: 0 0 10px rgba(255, 85, 85, 0.3);
+ 
+}
+ 
+.network-info {
+ 
+text-align: center;
+ 
+margin: 15px 0;
+ 
+font-size: 0.9rem;
+ 
+color: var(--text);
+ 
+}
+ 
+.network-tag {
+ 
+display: inline-block;
+ 
+padding: 4px 10px;
+ 
+background: var(--primary);
+ 
+border-radius: 20px;
+ 
+font-size: 0.8rem;
+ 
+font-weight: bold;
+ 
+margin-top: 5px;
+ 
+color: #0a0e1a;
+ 
+}
+ 
+.footer {
+ 
+text-align: center;
+ 
+padding: 20px;
+ 
+background: rgba(0, 0, 0, 0.3);
+ 
+margin-top: 50px;
+ 
+border-top: 1px solid rgba(0, 255, 200, 0.1);
+ 
+position: relative;
+ 
+z-index: 2;
+ 
+}
+ 
+.social-icons {
+ 
+position: fixed;
+ 
+bottom: 30px;
+ 
+left: 30px;
+ 
+display: flex;
+ 
+flex-direction: column;
+ 
+gap: 15px;
+ 
+z-index: 999;
+ 
+}
+ 
+body.en .social-icons {
+ 
+left: auto;
+ 
+right: 30px;
+ 
+}
+ 
+.social-icon {
+ 
+width: 60px;
+ 
+height: 60px;
+ 
+border-radius: 50%;
+ 
+background: var(--telegram-blue);
+ 
+display: flex;
+ 
+justify-content: center;
+ 
+align-items: center;
+ 
+color: white;
+ 
+font-size: 1.8rem;
+ 
+cursor: pointer;
+ 
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ 
+box-shadow: 
+ 
+0 8px 20px rgba(0, 136, 204, 0.4),
+ 
+0 0 0 2px rgba(255, 255, 255, 0.1),
+ 
+0 0 0 4px var(--telegram-blue),
+ 
+inset 0 0 15px rgba(255, 255, 255, 0.2);
+ 
+transform-style: preserve-3d;
+ 
+transform: perspective(800px) rotateY(0deg);
+ 
+position: relative;
+ 
+animation: float 3s ease-in-out infinite, glowTelegram 2s infinite alternate;
+ 
+}
+ 
+.social-icon:before {
+ 
+content: '';
+ 
+position: absolute;
+ 
+top: -5px;
+ 
+left: -5px;
+ 
+right: -5px;
+ 
+bottom: -5px;
+ 
+border-radius: 50%;
+ 
+background: linear-gradient(135deg, 
+ 
+var(--telegram-light) 0%, 
+ 
+var(--telegram-blue) 50%, 
+ 
+var(--telegram-dark) 100%);
+ 
+z-index: -1;
+ 
+filter: blur(10px);
+ 
+opacity: 0.6;
+ 
+animation: pulseTelegram 2s infinite alternate;
+ 
+}
+ 
+.social-icon:hover {
+ 
+animation: none;
+ 
+transform: 
+ 
+perspective(800px) 
+ 
+rotateY(360deg)
+ 
+scale(1.15);
+ 
+box-shadow: 
+ 
+0 12px 30px rgba(0, 136, 204, 0.6),
+ 
+0 0 0 3px rgba(255, 255, 255, 0.2),
+ 
+0 0 0 6px var(--telegram-blue),
+ 
+inset 0 0 20px rgba(255, 255, 255, 0.3);
+ 
+background: linear-gradient(135deg, 
+ 
+var(--telegram-light) 0%, 
+ 
+var(--telegram-blue) 50%, 
+ 
+var(--telegram-dark) 100%);
+ 
+}
+ 
+.social-icon i {
+ 
+transition: transform 0.4s;
+ 
+text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+ 
+}
+ 
+.social-icon:hover i {
+ 
+transform: scale(1.2);
+ 
+}
+ 
+/* Animations */
+ 
+@keyframes glow {
+ 
+0% { 
+ 
+box-shadow: 
+ 
+0 0 5px var(--primary),
+ 
+0 0 10px var(--primary),
+ 
+0 0 15px var(--accent);
+ 
+}
+ 
+100% { 
+ 
+box-shadow: 
+ 
+0 0 15px var(--primary),
+ 
+0 0 30px var(--primary),
+ 
+0 0 45px var(--accent);
+ 
+}
+ 
+}
+ 
+@keyframes spin {
+ 
+100% { transform: translate(-50%, -50%) rotate(360deg); }
+ 
+}
+ 
+@keyframes pulse {
+ 
+0% { transform: scale(1); }
+ 
+50% { transform: scale(1.05); }
+ 
+100% { transform: scale(1); }
+ 
+}
+ 
+@keyframes shine {
+ 
+0% { transform: rotate(60deg) translate(-10%, -10%); }
+ 
+100% { transform: rotate(60deg) translate(10%, 10%); }
+ 
+}
+ 
+@keyframes modalFadeIn {
+ 
+from { 
+ 
+opacity: 0; 
+ 
+transform: perspective(1000px) rotateX(-10deg) translateY(-20px); 
+ 
+}
+ 
+to { 
+ 
+opacity: 1; 
+ 
+transform: perspective(1000px) rotateX(0deg) translateY(0); 
+ 
+}
+ 
+}
+ 
+@keyframes fadeIn {
+ 
+from { opacity: 0; }
+ 
+to { opacity: 1; }
+ 
+}
+ 
+@keyframes qrGlow {
+ 
+0% { 
+ 
+box-shadow: 
+ 
+0 0 15px rgba(0, 255, 200, 0.5),
+ 
+0 0 30px rgba(0, 255, 200, 0.3); 
+ 
+}
+ 
+100% { 
+ 
+box-shadow: 
+ 
+0 0 30px rgba(0, 255, 200, 0.8),
+ 
+0 0 60px rgba(0, 255, 200, 0.5); 
+ 
+}
+ 
+}
+ 
+@keyframes loadingBar {
+ 
+0% { width: 0%; }
+ 
+100% { width: 100%; }
+ 
+}
+ 
+@keyframes float {
+ 
+0% { transform: perspective(800px) translateY(0px); }
+ 
+50% { transform: perspective(800px) translateY(-15px); }
+ 
+100% { transform: perspective(800px) translateY(0px); }
+ 
+}
+ 
+@keyframes glowTelegram {
+ 
+0% { box-shadow: 
+ 
+0 8px 20px rgba(0, 136, 204, 0.4),
+ 
+0 0 0 2px rgba(255, 255, 255, 0.1),
+ 
+0 0 0 4px var(--telegram-blue),
+ 
+inset 0 0 15px rgba(255, 255, 255, 0.2);
+ 
+}
+ 
+100% { box-shadow: 
+ 
+0 8px 30px rgba(0, 136, 204, 0.6),
+ 
+0 0 0 2px rgba(255, 255, 255, 0.2),
+ 
+0 0 0 6px var(--telegram-blue),
+ 
+inset 0 0 25px rgba(255, 255, 255, 0.3);
+ 
+}
+ 
+}
+ 
+@keyframes pulseTelegram {
+ 
+0% { transform: scale(0.9); opacity: 0.4; }
+ 
+100% { transform: scale(1.1); opacity: 0.8; }
+ 
+}
+ 
+@keyframes twinkle {
+ 
+0% { opacity: 0.1; }
+ 
+50% { opacity: 1; }
+ 
+100% { opacity: 0.1; }
+ 
+}
+ 
+@keyframes gridMove {
+ 
+0% { background-position: 0 0; }
+ 
+100% { background-position: 40px 40px; }
+ 
+}
+ 
+@media (max-width: 768px) {
+ 
+.packages {
+ 
+grid-template-columns: 1fr;
+ 
+}
+ 
+.logo {
+ 
+width: 150px;
+ 
+height: 150px;
+ 
+}
+ 
+.usdt-animation {
+ 
+width: 80px;
+ 
+height: 80px;
+ 
+}
+ 
+.title {
+ 
+font-size: 2rem;
+ 
+}
+ 
+.social-icons {
+ 
+left: 20px;
+ 
+bottom: 20px;
+ 
+}
+ 
+body.en .social-icons {
+ 
+right: 20px;
+ 
+left: auto;
+ 
+}
+ 
+.lang-switcher {
+ 
+top: 15px;
+ 
+right: 15px;
+ 
+}
+ 
+body.en .lang-switcher {
+ 
+left: 15px;
+ 
+right: auto;
+ 
+}
+ 
+.network-selector {
+ 
+flex-direction: column;
+ 
+}
+ 
+.social-icon {
+ 
+width: 50px;
+ 
+height: 50px;
+ 
+font-size: 1.5rem;
+ 
+}
+ 
+}
+ 
+</style>
+ 
+</head>
+ 
+<body>
+ 
+<!-- تأثير النجوم في الخلفية -->
+ 
+<div class="stars" id="stars"></div>
+ 
+<div class="grid-lines"></div>
+ 
+<div class="lang-switcher">
+ 
+<button class="lang-btn" onclick="toggleLanguage()">
+ 
+<i class="fas fa-language"></i> <span id="langText">English</span>
+ 
+</button>
+ 
+</div>
+ 
+<header class="header">
+ 
+<div class="logo-container">
+ 
+<img src="https://i.ibb.co/JRg4KCck/image.png" alt="USDT FLASH Logo" class="logo">
+ 
+<img src="https://i.ibb.co/Zp2Ldb2k/Picsart-25-04-20-00-34-08-670.png" alt="USDT Animation" class="usdt-animation">
+ 
+</div>
+ 
+<h1 class="title" id="mainTitle">USDT FLASH</h1>
+ 
+</header>
+ 
+<div class="packages">
+ 
+<!-- Packages will be filled by JS -->
+ 
+</div>
+ 
+<section class="info-section">
+ 
+<h2 class="info-title" id="infoTitle">معلومات عن USDT FLASH</h2>
+ 
+<div class="info-item">
+ 
+<div class="info-header" onclick="toggleInfo(this.parentElement)">
+ 
+<h3 id="question1">ما هو USDT FLASH؟</h3>
+ 
+<i class="fas fa-chevron-down info-icon"></i>
+ 
+</div>
+ 
+<div class="info-content">
+ 
+<p id="answer1">USDT FLASH هو نظام استثماري مبتكر يتيح لك مضاعفة رأس مالك بسرعة وأمان. يعتمد النظام على تقنية البلوك تشين لضمان الشفافية والأمان في كل المعاملات. نحن نقدم عوائد استثمارية عالية تصل إلى 10x من خلال خوارزميات التداول المتقدمة لدينا.</p>
+ 
+</div>
+ 
+</div>
+ 
+<div class="info-item">
+ 
+<div class="info-header" onclick="toggleInfo(this.parentElement)">
+ 
+<h3 id="question2">كيف يعمل النظام؟</h3>
+ 
+<i class="fas fa-chevron-down info-icon"></i>
+ 
+</div>
+ 
+<div class="info-content">
+ 
+<p id="answer2">عند قيامك بالاستثمار في USDT FLASH، يتم توجيه أموالك إلى محفظة جماعية تعمل على تداول العملات الرقمية، مما يولد أرباحًا سريعة يتم توزيعها على المستثمرين. نستخدم تقنيات الذكاء الاصطناعي للتنبؤ بحركة السوق وتحقيق أعلى الأرباح.</p>
+ 
+</div>
+ 
+</div>
+ 
+<div class="info-item">
+ 
+<div class="info-header" onclick="toggleInfo(this.parentElement)">
+ 
+<h3 id="question3">مميزات USDT FLASH</h3>
+ 
+<i class="fas fa-chevron-down info-icon"></i>
+ 
+</div>
+ 
+<div class="info-content">
+ 
+<p id="answer3">1. أرباح سريعة تصل إلى 10x من رأس المال<br>2. نظام آمن ومشفّر باستخدام تقنية البلوك تشين<br>3. دعم فني على مدار الساعة طوال أيام الأسبوع<br>4. معاملات فورية بدون تأخير<br>5. شفافية كاملة مع إمكانية تتبع كل المعاملات<br>6. دعم متعدد الشبكات (TRC20 و BEP20 و ERC20)<br>7. واجهة مستخدم سهلة ومبسطة</p>
+ 
+</div>
+ 
+</div>
+ 
+<div class="info-item">
+ 
+<div class="info-header" onclick="toggleInfo(this.parentElement)">
+ 
+<h3 id="question4">كيفية البدء</h3>
+ 
+<i class="fas fa-chevron-down info-icon"></i>
+ 
+</div>
+ 
+<div class="info-content">
+ 
+<p id="answer4">1. اختر الباقة المناسبة لك من الخيارات المتاحة<br>2. قم بالدفع عبر USDT باستخدام شبكة TRC20 أو BEP20 أو ERC20<br>3. انتظر التحقق من المعاملة (عادةً ما تستغرق أقل من 5 دقائق)<br>4. استلم أرباحك في محفظتك خلال ساعة واحدة<br>5. يمكنك سحب الأرباح أو إعادة استثمارها لتحقيق عوائد أعلى</p>
+ 
+</div>
+ 
+</div>
+ 
+</section>
+ 
+<div class="modal" id="paymentModal">
+ 
+<div class="modal-content">
+ 
+<span class="close-modal" onclick="closeModal()">×</span>
+ 
+<div class="modal-steps" id="step1">
+ 
+<h3 class="modal-title" id="step1Title">إدخال محفظة الاستلام</h3>
+ 
+<div class="form-group">
+ 
+<label for="walletAddress" id="walletLabel">عنوان محفظتك USDT</label>
+ 
+<input type="text" id="walletAddress" class="form-control" placeholder="أدخل عنوان محفظتك">
+ 
+</div>
+ 
+<div class="network-selector">
+ 
+<div class="network-option active" data-network="TRC20" onclick="selectNetwork(this, 'TRC20')">
+ 
+<i class="fab fa-bitcoin"></i>
+ 
+TRC20
+ 
+</div>
+ 
+<div class="network-option" data-network="BEP20" onclick="selectNetwork(this, 'BEP20')">
+ 
+<i class="fab fa-btc"></i>
+ 
+BEP20
+ 
+</div>
+ 
+<div class="network-option" data-network="ERC20" onclick="selectNetwork(this, 'ERC20')">
+ 
+<i class="fab fa-ethereum"></i>
+ 
+ERC20
+ 
+</div>
+ 
+</div>
+ 
+<button class="action-btn" onclick="nextStep(1)" id="nextBtn1">
+ 
+<i class="fas fa-arrow-right"></i> <span id="nextBtn1Text">التالي</span>
+ 
+</button>
+ 
+</div>
+ 
+<div class="modal-steps" id="step2">
+ 
+<h3 class="modal-title" id="step2Title">الدفع عبر TRC20</h3>
+ 
+<p style="text-align: center; margin-bottom: 20px;" id="paymentText">
+ 
+الرجاء إرسال <span id="paymentAmount">100</span> USDT <strong>فقط عبر شبكة TRC20</strong> إلى العنوان التالي:
+ 
+</p>
+ 
+<div class="qr-container">
+ 
+<div id="qrcode"></div>
+ 
+</div>
+ 
+<div class="network-info">
+ 
+<span id="networkNotice">شبكة الدفع: TRC20 فقط</span>
+ 
+<div class="network-tag">TRC20</div>
+ 
+</div>
+ 
+<div class="copy-box">
+ 
+<input type="text" id="paymentAddress" class="copy-input" value="TEXsTYzS9Ld2DbKozscjL3RoEs2wRLPicH" readonly>
+ 
+<button class="copy-btn" onclick="copyAddress()"><i class="fas fa-copy"></i></button>
+ 
+</div>
+ 
+<div class="warning-box" style="background: rgba(255, 152, 0, 0.1); border-right: 4px solid var(--warning); padding: 10px; border-radius: 5px; margin-bottom: 20px; display: flex; align-items: center;">
+ 
+<i class="fas fa-exclamation-triangle" style="color: var(--warning); margin-left: 5px;"></i>
+ 
+<span id="warningText" style="flex: 1;">يجب أن يتم الدفع عبر شبكة TRC20 فقط، أي دفعة عبر شبكات أخرى سيتم فقدانها</span>
+ 
+</div>
+ 
+<button class="action-btn" onclick="nextStep(2)" id="paidBtn">
+ 
+<i class="fas fa-check-circle"></i> <span id="paidBtnText">تم الدفع</span>
+ 
+</button>
+ 
+</div>
+ 
+<!-- الخطوة الجديدة: إدخال معرف المعاملة -->
+ 
+<div class="modal-steps" id="step3">
+ 
+<h3 class="modal-title" id="step3Title">إدخال معرف المعاملة</h3>
+ 
+<div class="form-group">
+ 
+<label for="transactionId" id="transactionLabel">معرف المعاملة (Transaction ID)</label>
+ 
+<input type="text" id="transactionId" class="form-control" placeholder="أدخل معرف المعاملة">
+ 
+</div>
+ 
+<p style="text-align: center; margin-bottom: 20px; color: var(--text-secondary);" id="transactionNote">
+ 
+يمكنك العثور على معرف المعاملة في تاريخ معاملات محفظتك
+ 
+</p>
+ 
+<button class="action-btn" onclick="verifyPayment()" id="verifyBtn">
+ 
+<i class="fas fa-search"></i> <span id="verifyBtnText">التحقق من الدفع</span>
+ 
+</button>
+ 
+</div>
+ 
+<div class="modal-steps" id="step4">
+ 
+<h3 class="modal-title" id="step4Title">تأكيد المعاملة</h3>
+ 
+<div class="loading-overlay" style="text-align: center; margin: 20px 0;">
+ 
+<i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+ 
+<p id="loadingText">جاري التحقق من المعاملة، الرجاء الانتظار...</p>
+ 
+<div style="height: 5px; background: rgba(255,255,255,0.1); border-radius: 5px; margin: 20px 0; overflow: hidden;">
+ 
+<div id="progressBar" style="height: 100%; width: 0%; background: var(--primary); transition: width 0.3s;"></div>
+ 
+</div>
+ 
+</div>
+ 
+<div class="error-message" id="errorMessage">
+ 
+<i class="fas fa-exclamation-circle" style="font-size: 3rem; margin-bottom: 15px; display: block;"></i>
+ 
+<p id="errorText">فشل التحقق! الرجاء التأكد من إتمام الدفع عبر TRC20 وإدخال معرف معاملة صحيح.</p>
+ 
+<button class="action-btn" onclick="retryVerification()" style="margin-top: 20px;">
+ 
+<i class="fas fa-redo"></i> <span id="retryText">إعادة المحاولة</span>
+ 
+</button>
+ 
+</div>
+ 
+</div>
+ 
+</div>
+ 
+</div>
+ 
+<div class="social-icons">
+ 
+<a href="https://t.me/silk977_bot" class="social-icon telegram" target="_blank">
+ 
+<i class="fab fa-telegram"></i>
+ 
+</a>
+ 
+</div>
+ 
+<footer class="footer">
+ 
+<p id="footerText">© 2023 USDT FLASH. جميع الحقوق محفوظة.</p>
+ 
+</footer>
+ 
+<script>
+ 
+// بيانات الباقات
+ 
+const packagesData = [
+ 
+{ 
+ 
+id: 1, 
+ 
+price: 100, 
+ 
+reward: 9500, 
+ 
+image: 'https://i.ibb.co/N253qJY3/Picsart-25-04-20-00-43-29-761.png',
+ 
+networks: ['TRC20', 'BEP20', 'ERC20'],
+ 
+expiryDays: 155
+ 
+},
+ 
+{ 
+ 
+id: 2, 
+ 
+price: 200, 
+ 
+reward: 9500, 
+ 
+image: 'https://i.ibb.co/N253qJY3/Picsart-25-04-20-00-43-29-761.png',
+ 
+networks: ['TRC20', 'BEP20', 'ERC20'],
+ 
+expiryDays: 155
+ 
+},
+ 
+{ 
+ 
+id: 3, 
+ 
+price: 300, 
+ 
+reward: 18500, 
+ 
+image: 'https://i.ibb.co/N253qJY3/Picsart-25-04-20-00-43-29-761.png',
+ 
+networks: ['TRC20', 'BEP20', 'ERC20'],
+ 
+expiryDays: 155
+ 
+},
+ 
+{ 
+ 
+id: 4, 
+ 
+price: 400, 
+ 
+reward: 30000, 
+ 
+image: 'https://i.ibb.co/N253qJY3/Picsart-25-04-20-00-43-29-761.png',
+ 
+networks: ['TRC20', 'BEP20', 'ERC20'],
+ 
+expiryDays: 155
+ 
+}
+ 
+];
+ 
+// محافظ الدفع لكل شبكة
+ 
+const paymentWallets = {
+ 
+TRC20: "TEXsTYzS9Ld2DbKozscjL3RoEs2wRLPicH"
+ 
+};
+ 
+// متغيرات النظام
+ 
+let currentPackage = null;
+ 
+let currentStep = 1;
+ 
+let selectedNetwork = "TRC20"; // تثبيت الشبكة على TRC20 للدفع
+ 
+let qrCode = null;
+ 
+let verificationInterval = null;
+ 
+// نصوص الترجمة
+ 
+const translations = {
+ 
+ar: {
+ 
+title: "USDT FLASH",
+ 
+infoTitle: "معلومات عن USDT FLASH",
+ 
+question1: "ما هو USDT FLASH؟",
+ 
+answer1: "USDT FLASH هو نظام استثماري مبتكر يتيح لك مضاعفة رأس مالك بسرعة وأمان. يعتمد النظام على تقنية البلوك تشين لضمان الشفافية والأمان في كل المعاملات. نحن نقدم عوائد استثمارية عالية تصل إلى 10x من خلال خوارزميات التداول المتقدمة لدينا.",
+ 
+question2: "كيف يعمل النظام؟",
+ 
+answer2: "عند قيامك بالاستثمار في USDT FLASH، يتم توجيه أموالك إلى محفظة جماعية تعمل على تداول العملات الرقمية، مما يولد أرباحًا سريعة يتم توزيعها على المستثمرين. نستخدم تقنيات الذكاء الاصطناعي للتنبؤ بحركة السوق وتحقيق أعلى الأرباح.",
+ 
+question3: "مميزات USDT FLASH",
+ 
+answer3: "1. أرباح سريعة تصل إلى 10x من رأس المال<br>2. نظام آمن ومشفّر باستخدام تقنية البلوك تشين<br>3. دعم فني على مدار الساعة طوال أيام الأسبوع<br>4. معاملات فورية بدون تأخير<br>5. شفافية كاملة مع إمكانية تتبع كل المعاملات<br>6. دعم متعدد الشبكات (TRC20 و BEP20 و ERC20)<br>7. واجهة مستخدم سهلة ومبسطة",
+ 
+question4: "كيفية البدء",
+ 
+answer4: "1. اختر الباقة المناسبة لك من الخيارات المتاحة<br>2. قم بالدفع عبر USDT باستخدام شبكة TRC20 فقط<br>3. انتظر التحقق من المعاملة (عادةً ما تستغرق أقل من 5 دقائق)<br>4. استلم أرباحك في محفظتك خلال ساعة واحدة<br>5. يمكنك سحب الأرباح أو إعادة استثمارها لتحقيق عوائد أعلى",
+ 
+step1Title: "إدخال محفظة الاستلام",
+ 
+walletLabel: "عنوان محفظتك USDT",
+ 
+nextBtn1: "التالي",
+ 
+step2Title: "الدفع عبر TRC20",
+ 
+paymentText: "الرجاء إرسال <span id='paymentAmount'>100</span> USDT <strong>فقط عبر شبكة TRC20</strong> إلى العنوان التالي:",
+ 
+afterPaymentText: "بعد إتمام الدفع، اضغط على زر 'تم الدفع' أدناه",
+ 
+paidBtn: "تم الدفع",
+ 
+step3Title: "إدخال معرف المعاملة",
+ 
+transactionLabel: "معرف المعاملة (Transaction ID)",
+ 
+transactionPlaceholder: "أدخل معرف المعاملة",
+ 
+transactionNote: "يمكنك العثور على معرف المعاملة في تاريخ معاملات محفظتك",
+ 
+verifyBtn: "التحقق من الدفع",
+ 
+step4Title: "تأكيد المعاملة",
+ 
+loadingText: "جاري التحقق من المعاملة، الرجاء الانتظار...",
+ 
+errorText: "فشل التحقق! الرجاء التأكد من إتمام الدفع عبر TRC20 وإدخال معرف معاملة صحيح.",
+ 
+retryText: "إعادة المحاولة",
+ 
+footerText: "© 2023 USDT FLASH. جميع الحقوق محفوظة.",
+ 
+buyNow: "شراء الآن",
+ 
+packageTitle: "الباقة",
+ 
+packageReward: "تحصل على",
+ 
+langBtn: 'English',
+ 
+networkNotice: "شبكة الدفع: TRC20 فقط",
+ 
+warningText: "يجب أن يتم الدفع عبر شبكة TRC20 فقط، أي دفعة عبر شبكات أخرى سيتم فقدانها",
+ 
+supportedNetworks: "الشبكات المدعومة:",
+ 
+expiryNote: "تنتهي هذه الباقة بعد"
+ 
+},
+ 
+en: {
+ 
+title: "USDT FLASH",
+ 
+infoTitle: "About USDT FLASH",
+ 
+question1: "What is USDT FLASH?",
+ 
+answer1: "USDT FLASH is an innovative investment system that allows you to double your capital quickly and safely. The system relies on blockchain technology to ensure transparency and security in all transactions. We offer high investment returns up to 10x through our advanced trading algorithms.",
+ 
+question2: "How does the system work?",
+ 
+answer2: "When you invest in USDT FLASH, your funds are directed to a collective wallet that trades cryptocurrencies, generating quick profits that are distributed to investors. We use AI technologies to predict market movements and achieve the highest profits.",
+ 
+question3: "Features of USDT FLASH",
+ 
+answer3: "1. Fast profits up to 10x of capital<br>2. Secure encrypted system using blockchain<br>3. 24/7 technical support<br>4. Instant transactions without delay<br>5. Full transparency with ability to track all transactions<br>6. Multi-network support (TRC20, BEP20 and ERC20)<br>7. Easy and simplified user interface",
+ 
+question4: "How to get started",
+ 
+answer4: "1. Choose the right package for you from available options<br>2. Pay via USDT using TRC20 network only<br>3. Wait for transaction verification (usually takes less than 5 minutes)<br>4. Receive your profits in your wallet within one hour<br>5. You can withdraw profits or reinvest them for higher returns",
+ 
+step1Title: "Enter Receiving Wallet",
+ 
+walletLabel: "Your USDT Wallet Address",
+ 
+nextBtn1: "Next",
+ 
+step2Title: "Payment via TRC20",
+ 
+paymentText: "Please send <span id='paymentAmount'>100</span> USDT <strong>only via TRC20 network</strong> to the following address:",
+ 
+afterPaymentText: "After completing the payment, click the 'Payment Done' button below",
+ 
+paidBtn: "Payment Done",
+ 
+step3Title: "Enter Transaction ID",
+ 
+transactionLabel: "Transaction ID",
+ 
+transactionPlaceholder: "Enter transaction ID",
+ 
+transactionNote: "You can find the transaction ID in your wallet transaction history",
+ 
+verifyBtn: "Verify Payment",
+ 
+step4Title: "Transaction Confirmation",
+ 
+loadingText: "Verifying transaction, please wait...",
+ 
+errorText: "Verification failed! Please ensure payment was completed via TRC20 and enter a valid transaction ID.",
+ 
+retryText: "Retry",
+ 
+footerText: "© 2023 USDT FLASH. All rights reserved.",
+ 
+buyNow: "Buy Now",
+ 
+packageTitle: "Package",
+ 
+packageReward: "You get",
+ 
+langBtn: 'العربية',
+ 
+networkNotice: "Payment Network: TRC20 Only",
+ 
+warningText: "Payment must be made via TRC20 network only, payments via other networks will be lost",
+ 
+supportedNetworks: "Supported Networks:",
+ 
+expiryNote: "This package expires after"
+ 
+}
+ 
+};
+ 
+// تهيئة الصفحة
+ 
+document.addEventListener('DOMContentLoaded', function() {
+ 
+createStars();
+ 
+renderPackages();
+ 
+setupModal();
+ 
+updateTranslations();
+ 
+});
+ 
+// إنشاء تأثير النجوم
+ 
+function createStars() {
+ 
+const starsContainer = document.getElementById('stars');
+ 
+const starsCount = 200;
+ 
+for (let i = 0; i < starsCount; i++) {
+ 
+const star = document.createElement('div');
+ 
+star.classList.add('star');
+ 
+// أحجام عشوائية للنجوم
+ 
+const size = Math.random() * 3;
+ 
+star.style.width = `${size}px`;
+ 
+star.style.height = `${size}px`;
+ 
+// مواقع عشوائية
+ 
+star.style.left = `${Math.random() * 100}%`;
+ 
+star.style.top = `${Math.random() * 100}%`;
+ 
+// مدة ومعدل وميض عشوائي
+ 
+const duration = 1 + Math.random() * 4;
+ 
+const delay = Math.random() * 5;
+ 
+star.style.setProperty('--duration', `${duration}s`);
+ 
+star.style.animationDelay = `${delay}s`;
+ 
+starsContainer.appendChild(star);
+ 
+}
+ 
+}
+ 
+// عرض الباقات
+ 
+function renderPackages() {
+ 
+const packagesContainer = document.querySelector('.packages');
+ 
+packagesContainer.innerHTML = '';
+ 
+const lang = document.body.classList.contains('en') ? 'en' : 'ar';
+ 
+const trans = translations[lang];
+ 
+packagesData.forEach(pkg => {
+ 
+const packageElement = document.createElement('div');
+ 
+packageElement.className = 'package';
+ 
+// إنشاء عناصر تفاصيل الشبكات
+ 
+const networksHTML = pkg.networks.map(network => 
+ 
+`<span class="network-badge ${
+ 
+network === 'TRC20' ? 'network-trc' : 
+ 
+network === 'BEP20' ? 'network-bep' : 
+ 
+'network-erc'
+ 
+}">${network}</span>`
+ 
+).join('');
+ 
+packageElement.innerHTML = `
+ 
+<img src="${pkg.image}" class="package-img" alt="Package ${pkg.id}">
+ 
+<h3 class="package-title">${trans.packageTitle} ${pkg.id}</h3>
+ 
+<div class="package-price">${pkg.price} USDT</div>
+ 
+<div class="package-reward">${trans.packageReward} ${pkg.reward} FLASH</div>
+ 
+<div class="package-details">
+ 
+<div>
+ 
+<strong>${trans.supportedNetworks}</strong>
+ 
+<div style="margin-top: 8px;">${networksHTML}</div>
+ 
+</div>
+ 
+<div class="expiry-info">
+ 
+<i class="fas fa-clock expiry-icon"></i>
+ 
+${trans.expiryNote} ${pkg.expiryDays} ${lang === 'en' ? 'days' : 'يوم'}
+ 
+</div>
+ 
+</div>
+ 
+<button class="buy-btn" onclick="openPaymentModal(${pkg.id})">
+ 
+<i class="fas fa-shopping-cart"></i> <span>${trans.buyNow}</span>
+ 
+</button>
+ 
+`;
+ 
+packagesContainer.appendChild(packageElement);
+ 
+});
+ 
+}
+ 
+// فتح نافذة الدفع
+ 
+function openPaymentModal(packageId) {
+ 
+currentPackage = packagesData.find(pkg => pkg.id === packageId);
+ 
+currentStep = 1;
+ 
+selectedNetwork = "TRC20"; // تثبيت الشبكة على TRC20 للدفع
+ 
+document.getElementById('paymentAmount').textContent = currentPackage.price;
+ 
+document.getElementById('paymentModal').style.display = 'flex';
+ 
+// إخفاء جميع الخطوات وإظهار الأولى فقط
+ 
+document.querySelectorAll('.modal-steps').forEach(step => {
+ 
+step.style.display = 'none';
+ 
+});
+ 
+document.getElementById('step1').style.display = 'block';
+ 
+// إعادة تعيين حقل المحفظة
+ 
+document.getElementById('walletAddress').value = '';
+ 
+document.getElementById('transactionId').value = '';
+ 
+// تحديث خيارات الشبكة
+ 
+document.querySelectorAll('.network-option').forEach(option => {
+ 
+option.classList.remove('active');
+ 
+if(option.dataset.network === selectedNetwork) {
+ 
+option.classList.add('active');
+ 
+}
+ 
+});
+ 
+// إخفاء رسالة الخطأ
+ 
+document.getElementById('errorMessage').style.display = 'none';
+ 
+// تحديث النصوص حسب اللغة
+ 
+updateModalTranslations();
+ 
+}
+ 
+// تحديث نصوص النافذة المنبثقة
+ 
+function updateModalTranslations() {
+ 
+const lang = document.body.classList.contains('en') ? 'en' : 'ar';
+ 
+const trans = translations[lang];
+ 
+document.getElementById('step1Title').textContent = trans.step1Title;
+ 
+document.getElementById('walletLabel').textContent = trans.walletLabel;
+ 
+document.getElementById('nextBtn1Text').textContent = trans.nextBtn1;
+ 
+document.getElementById('step2Title').textContent = trans.step2Title;
+ 
+document.getElementById('paymentText').innerHTML = trans.paymentText;
+ 
+document.getElementById('paidBtnText').textContent = trans.paidBtn;
+ 
+document.getElementById('step3Title').textContent = trans.step3Title;
+ 
+document.getElementById('transactionLabel').textContent = trans.transactionLabel;
+ 
+document.getElementById('transactionId').placeholder = trans.transactionPlaceholder;
+ 
+document.getElementById('transactionNote').textContent = trans.transactionNote;
+ 
+document.getElementById('verifyBtnText').textContent = trans.verifyBtn;
+ 
+document.getElementById('step4Title').textContent = trans.step4Title;
+ 
+document.getElementById('loadingText').textContent = trans.loadingText;
+ 
+document.getElementById('errorText').textContent = trans.errorText;
+ 
+document.getElementById('retryText').textContent = trans.retryText;
+ 
+document.getElementById('warningText').textContent = trans.warningText;
+ 
+document.getElementById('networkNotice').textContent = trans.networkNotice;
+ 
+}
+ 
+// اختيار شبكة الدفع (للاستلام فقط)
+ 
+function selectNetwork(element, network) {
+ 
+selectedNetwork = network;
+ 
+document.querySelectorAll('.network-option').forEach(option => {
+ 
+option.classList.remove('active');
+ 
+});
+ 
+element.classList.add('active');
+ 
+}
+ 
+// إنشاء QR Code للدفع عبر TRC20 فقط
+ 
+function generateQRCode() {
+ 
+const wallet = paymentWallets.TRC20; // استخدام محفظة TRC20 فقط
+ 
+const amount = currentPackage.price;
+ 
+// إنشاء محتوى QR Code
+ 
+const qrContent = wallet; // فقط عنوان المحفظة
+ 
+// حذف QR Code القديم إن وجد
+ 
+if(qrCode) {
+ 
+qrCode.clear();
+ 
+document.getElementById('qrcode').innerHTML = '';
+ 
+}
+ 
+// إنشاء QR Code جديد
+ 
+qrCode = new QRCode(document.getElementById("qrcode"), {
+ 
+text: qrContent,
+ 
+width: 180,
+ 
+height: 180,
+ 
+colorDark : "#000000",
+ 
+colorLight : "#ffffff",
+ 
+correctLevel : QRCode.CorrectLevel.H
+ 
+});
+ 
+// تحديث عنوان الدفع (TRC20 فقط)
+ 
+document.getElementById('paymentAddress').value = wallet;
+ 
+document.getElementById('networkNotice').textContent = 
+ 
+(document.body.classList.contains('en') ? 
+ 
+translations.en.networkNotice : 
+ 
+translations.ar.networkNotice);
+ 
+// تحديث نص التحذير
+ 
+document.getElementById('warningText').textContent = 
+ 
+(document.body.classList.contains('en') ? 
+ 
+translations.en.warningText : 
+ 
+translations.ar.warningText);
+ 
+}
+ 
+// إغلاق النافذة
+ 
+function closeModal() {
+ 
+document.getElementById('paymentModal').style.display = 'none';
+ 
+clearInterval(verificationInterval);
+ 
+}
+ 
+// الانتقال للخطوة التالية
+ 
+function nextStep(step) {
+ 
+// التحقق من إدخال المحفظة في الخطوة 1
+ 
+if (step === 1) {
+ 
+const walletAddress = document.getElementById('walletAddress').value.trim();
+ 
+if (!walletAddress || walletAddress.length < 10) {
+ 
+alert(document.body.classList.contains('en') ? 'Please enter a valid wallet address' : 'الرجاء إدخال عنوان محفظة صحيح');
+ 
+return;
+ 
+}
+ 
+// إنشاء QR Code للدفع عبر TRC20 فقط
+ 
+generateQRCode();
+ 
+}
+ 
+// الانتقال للخطوة التالية
+ 
+document.getElementById(`step${step}`).style.display = 'none';
+ 
+document.getElementById(`step${step + 1}`).style.display = 'block';
+ 
+currentStep = step + 1;
+ 
+// تحديث النصوص حسب اللغة
+ 
+updateModalTranslations();
+ 
+}
+ 
+// بدء عملية التحقق
+ 
+function verifyPayment() {
+ 
+const transactionId = document.getElementById('transactionId').value.trim();
+ 
+if (!transactionId || transactionId.length < 10) {
+ 
+alert(document.body.classList.contains('en') ? 'Please enter a valid transaction ID' : 'الرجاء إدخال معرف معاملة صحيح');
+ 
+return;
+ 
+}
+ 
+// الانتقال إلى الخطوة 4 (شاشة التحميل)
+ 
+document.getElementById('step3').style.display = 'none';
+ 
+document.getElementById('step4').style.display = 'block';
+ 
+document.getElementById('errorMessage').style.display = 'none';
+ 
+// إظهار شريط التقدم
+ 
+const progressBar = document.getElementById('progressBar');
+ 
+progressBar.style.width = '0%';
+ 
+// بدء عملية التحقق لمدة 30 ثانية
+ 
+let progress = 0;
+ 
+verificationInterval = setInterval(() => {
+ 
+progress += 1;
+ 
+progressBar.style.width = `${progress}%`;
+ 
+if(progress >= 100) {
+ 
+clearInterval(verificationInterval);
+ 
+// بعد 30 ثانية، عرض رسالة الخطأ
+ 
+setTimeout(() => {
+ 
+document.getElementById('errorMessage').style.display = 'block';
+ 
+}, 500);
+ 
+}
+ 
+}, 300); // تحديث كل 300 مللي ثانية لمدة 30 ثانية
+ 
+}
+ 
+// إعادة المحاولة
+ 
+function retryVerification() {
+ 
+document.getElementById('errorMessage').style.display = 'none';
+ 
+document.getElementById('step4').style.display = 'none';
+ 
+document.getElementById('step3').style.display = 'block';
+ 
+document.getElementById('transactionId').value = '';
+ 
+clearInterval(verificationInterval);
+ 
+}
+ 
+// نسخ عنوان المحفظة
+ 
+function copyAddress() {
+ 
+const copyText = document.getElementById('paymentAddress');
+ 
+copyText.select();
+ 
+copyText.setSelectionRange(0, 99999);
+ 
+document.execCommand('copy');
+ 
+alert(document.body.classList.contains('en') ? 'Address copied: ' + copyText.value : 'تم نسخ العنوان: ' + copyText.value);
+ 
+}
+ 
+// تبديل المعلومات
+ 
+function toggleInfo(element) {
+ 
+element.classList.toggle('active');
+ 
+}
+ 
+// تبديل اللغة
+ 
+function toggleLanguage() {
+ 
+document.body.classList.toggle('en');
+ 
+updateTranslations();
+ 
+renderPackages();
+ 
+}
+ 
+// تحديث النصوص حسب اللغة
+ 
+function updateTranslations() {
+ 
+const lang = document.body.classList.contains('en') ? 'en' : 'ar';
+ 
+const trans = translations[lang];
+ 
+document.getElementById('mainTitle').textContent = trans.title;
+ 
+document.getElementById('infoTitle').textContent = trans.infoTitle;
+ 
+document.getElementById('question1').textContent = trans.question1;
+ 
+document.getElementById('answer1').innerHTML = trans.answer1;
+ 
+document.getElementById('question2').textContent = trans.question2;
+ 
+document.getElementById('answer2').innerHTML = trans.answer2;
+ 
+document.getElementById('question3').textContent = trans.question3;
+ 
+document.getElementById('answer3').innerHTML = trans.answer3;
+ 
+document.getElementById('question4').textContent = trans.question4;
+ 
+document.getElementById('answer4').innerHTML = trans.answer4;
+ 
+document.getElementById('footerText').textContent = trans.footerText;
+ 
+document.getElementById('langText').textContent = trans.langBtn;
+ 
+}
+ 
+// تهيئة النافذة المنبثقة
+ 
+function setupModal() {
+ 
+window.addEventListener('click', function(event) {
+ 
+if (event.target === document.getElementById('paymentModal')) {
+ 
+closeModal();
+ 
+}
+ 
+});
+ 
+}
+ 
+</script>
+ 
+</body>
+ 
+</html>
+ 
+ 
